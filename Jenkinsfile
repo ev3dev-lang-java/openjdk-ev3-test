@@ -10,7 +10,7 @@ pipeline {
         }
         stage('QEMU + binfmt') {
             steps {
-                sh "apt-get install binfmt-support qemu-user-static -y"
+                sh "sudo apt-get install binfmt-support qemu-user-static -y"
             }
         }
         stage("Build") {
