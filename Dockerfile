@@ -16,6 +16,8 @@ RUN apt-get update \
 # Install Perl modules for test framework
 RUN echo yes | cpan install JSON Text::CSV
 
+COPY ./java /java
+
 # Shell script to automate test execution
 COPY ./mktest.sh /mktest.sh
 
