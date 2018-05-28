@@ -8,9 +8,9 @@ COPY java-wrapper mktest.sh /opt/jdktest/
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install required OS and testing tools
-RUN [ "/usr/bin/qemu-arm-static", "/bin/sh", "apt-get update && apt-get install -qq -y --no-install-recommends apt-utils build-essential git ant ant-contrib && rm -rf /var/lib/apt/lists/*"]
+RUN [ "/usr/bin/qemu-arm-static", "/bin/sh", "-c", "apt-get update && apt-get install -qq -y --no-install-recommends apt-utils build-essential git ant ant-contrib && rm -rf /var/lib/apt/lists/*"]
 
 # Install Perl modules for test framework
-RUN [ "/usr/bin/qemu-arm-static", "/bin/sh", "echo yes | cpan install JSON Text::CSV" ]
+RUN [ "/usr/bin/qemu-arm-static", "/bin/sh", "-c", "echo yes | cpan install JSON Text::CSV" ]
 
 CMD [ "/usr/bin/qemu-arm-static", "/bin/bash", "/opt/jdktest/mktest.sh" ]
