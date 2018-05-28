@@ -8,7 +8,7 @@ pipeline {
                 checkout scm
             }
         }
-        stage("Test") {
+        stage("Build") {
             steps {
                 sh "docker build -t openjdk-10-ev3-test ."
             }
