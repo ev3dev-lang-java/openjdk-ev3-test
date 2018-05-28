@@ -18,6 +18,7 @@ apt-get install --yes --no-install-recommends ant
 git clone https://github.com/AdoptOpenJDK/openjdk-tests.git
 cd openjdk-tests
 cpan install JSON Text::CSV
+export BUILD_LIST=openjdk_regression
 export JAVA_BIN=/home/compiler/jdk/bin/
 export SPEC=linux_arm
 export JAVA_VERSION=SE100
