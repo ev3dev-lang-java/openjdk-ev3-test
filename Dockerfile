@@ -2,7 +2,7 @@ FROM ev3dev/ev3dev-stretch-ev3-generic
 
 # copy qemu & scripts to the container
 COPY qemu-arm-static /usr/bin/qemu-arm-static
-COPY java-wrapper mktest.sh /opt/jdktest
+COPY java-wrapper mktest.sh /opt/jdktest/
 
 # Use this when there is a need for input during docker image building process
 ENV DEBIAN_FRONTEND noninteractive
