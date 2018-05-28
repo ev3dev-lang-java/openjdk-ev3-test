@@ -4,6 +4,8 @@ set -e
 cd /home/compiler/
 wget https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk-10-ev3/lastSuccessfulBuild/artifact/build/jdk-ev3.tar.gz
 tar -xf jdk-ev3.tar.gz
+pwd
+ls
 update-alternatives --install /usr/bin/java java /home/compiler/jdk/bin/java 2000
 java -version
 exit 1
