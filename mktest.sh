@@ -19,4 +19,5 @@ cd TestConfig
 ./get.sh   -t /home/compiler/openjdk-tests   -p   linux_arm   -v    openjdk10
 make -f run_configure.mk
 make compile
-make sanity
+# make sanety
+make jdk_math
