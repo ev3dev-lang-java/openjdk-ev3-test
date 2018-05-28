@@ -8,7 +8,7 @@ pwd
 ls
 sudo update-alternatives --install /usr/bin/java java /home/compiler/jdk/bin/java 2000
 java -version
-exit 1
+exit 0
 
 apt-get update
 apt-get install --yes --no-install-recommends apt-utils
