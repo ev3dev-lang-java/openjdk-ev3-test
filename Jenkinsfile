@@ -8,11 +8,6 @@ pipeline {
                 checkout scm
             }
         }
-        stage('QEMU + binfmt') {
-            steps {
-                sh "sudo apt-get install binfmt-support qemu-user-static -y"
-            }
-        }
         stage("Build") {
             steps {
                 sh "docker build -t openjdk-10-ev3-test ."
