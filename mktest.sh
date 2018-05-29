@@ -10,7 +10,7 @@ tar -xf jdk-ev3.tar.gz
 cp ./java-wrapper ./jdk/bin/java-wrapper
 sudo update-alternatives --install /usr/bin/java "$(pwd)/jdk/bin/java-wrapper" 2000
 java -version
-exit 0
+#exit 0
 
 git clone https://github.com/AdoptOpenJDK/openjdk-tests.git
 cd openjdk-tests
