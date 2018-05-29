@@ -1,26 +1,47 @@
 #/bin/bash
 set -e
-
 cd "$(dirname ${BASH_SOURCE[0]})"
 
-echo "Running Script to test OpenJDK"
+function log() {
+    echo "[TEST] " $@
+}
 
-wget https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk-10-ev3/lastSuccessfulBuild/artifact/build/jdk-ev3.tar.gz
-tar -xf jdk-ev3.tar.gz
-cp ./java-wrapper ./jdk/bin/java-wrapper
-update-alternatives --install /usr/bin/java java "$(pwd)/jdk/bin/java-wrapper" 2000
-java -version
-#exit 0
+function setup_jdk() {
+    log "Downloading latest JDK-EV3."
+    wget -nv https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk-10-ev3/lastSuccessfulBuild/artifact/build/jdk-ev3.tar.gz
 
-git clone https://github.com/AdoptOpenJDK/openjdk-tests.git
-cd openjdk-tests
-export BUILD_LIST=openjdk_regression
-export JAVA_BIN=/home/compiler/jdk/bin/
-export SPEC=linux_arm
-export JAVA_VERSION=SE100
-./get.sh   -t /home/compiler/openjdk-tests   -p   linux_arm   -v    openjdk10
-cd TestConfig
-make -f run_configure.mk
-make compile
-# make sanety
-make jdk_math
+    log "Extracting JDK."
+    tar -xf jdk-ev3.tar.gz
+
+    log "Configuring JDK."
+    cp ./java-wrapper ./jdk/bin/java-wrapper
+    update-alternatives --install /usr/bin/java java "$(pwd)/jdk/bin/java-wrapper" 2000
+    java -version
+}
+
+function run_tests() {
+    log "Downloading tests."
+    git clone --depth 1 https://github.com/AdoptOpenJDK/openjdk-tests.git
+    cd openjdk-tests
+
+    log "Calling get script."
+    export BUILD_LIST=openjdk_regression
+    export JAVA_BIN=/home/compiler/jdk/bin/
+    export SPEC=linux_arm
+    export JAVA_VERSION=SE100
+    ./get.sh   -t /home/compiler/openjdk-tests   -p   linux_arm   -v    openjdk10
+    cd TestConfig
+    
+    log "Calling configure."
+    make -f run_configure.mk
+    
+    log "Calling compile."
+    make compile
+    
+    log "Starting tests."
+    # make sanety
+    make jdk_math
+}
+
+setup_jdk
+run_tests
