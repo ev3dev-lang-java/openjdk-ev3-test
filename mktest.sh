@@ -18,8 +18,8 @@ export BUILD_LIST=openjdk_regression
 export JAVA_BIN=/home/compiler/jdk/bin/
 export SPEC=linux_arm
 export JAVA_VERSION=SE100
-cd TestConfig
 ./get.sh   -t /home/compiler/openjdk-tests   -p   linux_arm   -v    openjdk10
+cd TestConfig
 make -f run_configure.mk
 make compile
 # make sanety
