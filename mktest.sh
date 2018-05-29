@@ -8,7 +8,7 @@ echo "Running Script to test OpenJDK"
 wget https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk-10-ev3/lastSuccessfulBuild/artifact/build/jdk-ev3.tar.gz
 tar -xf jdk-ev3.tar.gz
 cp ./java-wrapper ./jdk/bin/java-wrapper
-sudo update-alternatives --install /usr/bin/java "$(pwd)/jdk/bin/java-wrapper" 2000
+sudo update-alternatives --install /usr/bin/java java "$(pwd)/jdk/bin/java-wrapper" 2000
 java -version
 #exit 0
 
