@@ -23,7 +23,7 @@ pipeline {
         always {
             script {
                 try {
-                    sh "docker rmi openjdk-10-ev3-test"
+                    sh "docker rmi openjdk-10-ev3-test 2>/dev/null"
                 } catch (err) {}
             }
         }
