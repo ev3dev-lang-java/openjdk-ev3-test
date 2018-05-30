@@ -19,4 +19,9 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            sh "docker rmi openjdk-10-ev3-test || true"
+        }
+    }
 }
