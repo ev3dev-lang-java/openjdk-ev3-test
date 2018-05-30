@@ -21,7 +21,11 @@ pipeline {
     }
     post {
         always {
-            sh "docker rmi openjdk-10-ev3-test || true"
+            script {
+                try {
+                    sh "docker rmi openjdk-10-ev3-test"
+                } catch (err) {}
+            }
         }
     }
 }
