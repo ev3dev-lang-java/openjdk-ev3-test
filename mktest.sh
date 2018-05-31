@@ -14,8 +14,9 @@ function setup_jdk() {
     tar -xf jdk-ev3.tar.gz
 
     log "Configuring JDK."
-    cp ./java-wrapper ./jdk/bin/java-wrapper
-    sudo update-alternatives --install /usr/bin/java java "$(pwd)/jdk/bin/java-wrapper" 2000
+    mv ./jdk/bin/java ./jdk/bin/java.real
+    echo -e '#!/bin/bash\n"'"$(pwd)/jdk/bin/java.real"'" -Xint "$@"' > ./jdk/bin/java
+    sudo update-alternatives --install /usr/bin/java java "$(pwd)/jdk/bin/java" 2000
     java -version
 }
 
