@@ -25,11 +25,12 @@ function run_tests() {
     cd openjdk-tests
 
     log "Calling get script."
+    ls /opt/jdktest/
     export BUILD_LIST=openjdk_regression
     export JAVA_BIN=/opt/jdktest/jdk/bin/
     export SPEC=linux_arm
     export JAVA_VERSION=SE100
-    ./get.sh   -t /home/compiler/openjdk-tests   -p   linux_arm   -v    openjdk10
+    ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux_arm   -v    openjdk10
     cd TestConfig
 
     log "Calling configure."
