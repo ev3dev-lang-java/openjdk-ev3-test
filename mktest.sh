@@ -15,7 +15,7 @@ function setup_jdk() {
 
     log "Configuring JDK."
     cp ./java-wrapper ./jdk/bin/java-wrapper
-    update-alternatives --install /usr/bin/java java "$(pwd)/jdk/bin/java-wrapper" 2000
+    sudo update-alternatives --install /usr/bin/java java "$(pwd)/jdk/bin/java-wrapper" 2000
     java -version
 }
 
