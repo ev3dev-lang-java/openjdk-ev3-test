@@ -26,18 +26,18 @@ function run_tests() {
 
     log "Calling get script."
     export BUILD_LIST=openjdk_regression
-    export JAVA_BIN=/home/compiler/jdk/bin/
+    export JAVA_BIN=/opt/jdktest/jdk/bin/
     export SPEC=linux_arm
     export JAVA_VERSION=SE100
     ./get.sh   -t /home/compiler/openjdk-tests   -p   linux_arm   -v    openjdk10
     cd TestConfig
-    
+
     log "Calling configure."
     make -f run_configure.mk
-    
+
     log "Calling compile."
     make compile
-    
+
     log "Starting tests."
     # make sanety
     make jdk_math
