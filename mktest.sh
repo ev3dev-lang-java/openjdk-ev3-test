@@ -18,6 +18,8 @@ function setup_jdk() {
     echo -e '#!/bin/bash\n"'"$(pwd)/jdk/bin/java.real"'" -Xint "$@"' > ./jdk/bin/java
     sudo update-alternatives --install /usr/bin/java java "$(pwd)/jdk/bin/java" 2000
     java -version
+    wget https://github.com/ev3dev-lang-java/openjdk-ev3-test/raw/master/example/HelloWorld.class
+    java HelloWorld
 }
 
 function run_tests() {
@@ -26,19 +28,20 @@ function run_tests() {
     cd openjdk-tests
 
     log "Calling get script."
+    ls /opt/jdktest/
     export BUILD_LIST=openjdk_regression
-    export JAVA_BIN=/home/compiler/jdk/bin/
+    export JAVA_BIN=/opt/jdktest/jdk/bin
     export SPEC=linux_arm
     export JAVA_VERSION=SE100
-    ./get.sh   -t /home/compiler/openjdk-tests   -p   linux_arm   -v    openjdk10
+    ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux_arm   -v    openjdk10
     cd TestConfig
-    
+
     log "Calling configure."
     make -f run_configure.mk
-    
+
     log "Calling compile."
     make compile
-    
+
     log "Starting tests."
     # make sanety
     make jdk_math
