@@ -17,7 +17,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Install required OS and testing tools
 RUN apt-get update && \
     apt-get install -qq -y --no-install-recommends \
-      make apt-utils git ant ant-contrib libtext-csv-perl libjson-perl sudo && \
+      make curl apt-utils git ant ant-contrib libtext-csv-perl libjson-perl sudo && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
