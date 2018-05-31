@@ -13,4 +13,5 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-CMD [ "/bin/bash", "/opt/jdktest/mktest.sh" ]
+#CMD [ "/bin/bash", "/opt/jdktest/mktest.sh" ]
+RUN [“chmod”, “+x”, "/opt/jdktest/mktest.sh”]
