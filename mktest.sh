@@ -27,7 +27,7 @@ function run_tests() {
     log "Calling get script."
     ls /opt/jdktest/
     export BUILD_LIST=openjdk_regression
-    export JAVA_BIN=/opt/jdktest/jdk/bin/
+    export JAVA_BIN=/opt/jdktest/jdk/bin
     export SPEC=linux_arm
     export JAVA_VERSION=SE100
     ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux_arm   -v    openjdk10
