@@ -17,6 +17,8 @@ function setup_jdk() {
     cp ./java-wrapper ./jdk/bin/java-wrapper
     sudo update-alternatives --install /usr/bin/java java "$(pwd)/jdk/bin/java-wrapper" 2000
     java -version
+    wget https://github.com/ev3dev-lang-java/openjdk-ev3-test/raw/master/example/HelloWorld.class
+    java HelloWorld
 }
 
 function run_tests() {
