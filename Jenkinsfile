@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label '( linux || sw.os.linux ) && ( x64 || x86_64 || x86 || hw.arch.x86 ) && ( docker || sw.tool.docker ) && test'
+        label '( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )'
     }
     stages {
         stage('checkout') {
