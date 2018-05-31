@@ -12,19 +12,8 @@ function setup_jdk() {
 
     log "Extracting JDK."
     tar -xf jdk-ev3.tar.gz
-}
 
-function setup_jri() {
-    log "Downloading latest JRI-EV3."
-    wget -nv https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk-10-ev3/lastSuccessfulBuild/artifact/build/jri-ev3.tar.gz
-
-    log "Extracting JRI."
-    tar -xf jri-ev3.tar.gz
-    mv jri-ev3 jdk
-}
-
-function setup_post() {
-    log "Configuring Java."
+    log "Configuring JDK."
     mv ./jdk/bin/java ./jdk/bin/java.real
     echo -e '#!/bin/bash\n"'"$(pwd)/jdk/bin/java.real"'" -Xint "$@"' > ./jdk/bin/java
     chmod +x ./jdk/bin/java
@@ -59,6 +48,5 @@ function run_tests() {
     make jdk_math
 }
 
-setup_jri
-setup_post
+setup_jdk
 run_tests
