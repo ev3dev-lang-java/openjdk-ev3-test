@@ -6,10 +6,10 @@ RUN adduser --disabled-password --gecos '' docker && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Copy qemu & scripts to the container
-COPY java-wrapper mktest.sh /opt/jdktest/
+COPY mktest.sh /opt/jdktest/
 RUN mkdir -p /opt/jdktest && \
     chown docker:docker -R /opt/jdktest && \
-    chmod +x /opt/jdktest/mktest.sh /opt/jdktest/java-wrapper
+    chmod +x /opt/jdktest/mktest.sh
 
 # Use this when there is a need for input during docker image building process
 ENV DEBIAN_FRONTEND noninteractive
