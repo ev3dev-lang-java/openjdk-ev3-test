@@ -6,6 +6,12 @@ function log() {
     echo "[TEST] " $@
 }
 
+function interpreterize() {
+    mv "./jdk/bin/$1" "./jdk/bin/$1.real"
+    echo -e '#!/bin/bash\n"'"$(pwd)/jdk/bin/$1.real"'" -Xint "$@"' > "./jdk/bin/$1"
+    chmod +x "./jdk/bin/$1"
+}
+
 function setup_jdk() {
     log "Downloading latest JDK-EV3."
     wget -nv https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk-10-ev3/lastSuccessfulBuild/artifact/build/jdk-ev3.tar.gz
@@ -14,9 +20,8 @@ function setup_jdk() {
     tar -xf jdk-ev3.tar.gz
 
     log "Configuring JDK."
-    mv ./jdk/bin/java ./jdk/bin/java.real
-    echo -e '#!/bin/bash\n"'"$(pwd)/jdk/bin/java.real"'" -Xint "$@"' > ./jdk/bin/java
-    chmod +x ./jdk/bin/java
+    interpreterize java
+    interpreterize javac
     sudo update-alternatives --install /usr/bin/java java "$(pwd)/jdk/bin/java" 2000
     java -version
     wget https://github.com/ev3dev-lang-java/openjdk-ev3-test/raw/master/example/HelloWorld.class
