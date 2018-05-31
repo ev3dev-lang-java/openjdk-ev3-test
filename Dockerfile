@@ -1,8 +1,15 @@
 FROM ev3dev/ev3dev-stretch-ev3-generic
 
+# Add non-root user for QEMU
+RUN adduser --disabled-password --gecos '' docker && \
+    adduser docker sudo && \
+    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
 # Copy qemu & scripts to the container
 COPY java-wrapper mktest.sh /opt/jdktest/
-RUN chmod +x /opt/jdktest/mktest.sh /opt/jdktest/java-wrapper
+RUN mkdir -p /opt/jdktest && \
+    chown docker:docker -R /opt/jdktest && \
+    chmod +x /opt/jdktest/mktest.sh /opt/jdktest/java-wrapper
 
 # Use this when there is a need for input during docker image building process
 ENV DEBIAN_FRONTEND noninteractive
@@ -14,11 +21,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Add non-root user for QEMU
-RUN adduser --disabled-password --gecos '' docker && \
-    adduser docker sudo && \
-    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
+# Set startup script
 USER docker
-
 CMD [ "/bin/bash", "/opt/jdktest/mktest.sh" ]
