@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label '( linux || sw.os.linux ) && ( x64 || x86_64 || x86 || hw.arch.x86 ) && ( docker || sw.tool.docker ) && !test'
+        label '( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )'
     }
     stages {
         stage('checkout') {
@@ -8,22 +8,23 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Build cross-compilation OS') {
+        stage("Build") {
             steps {
-                sh "docker build -t ev3dev-lang-java:jdk-stretch -f system/Dockerfile system "
-            }
-        }
-        stage("Build cross-compilation environment") {
-            steps {
-                sh "docker build -t ev3dev-lang-java:jdk-build -f scripts/Dockerfile scripts "
+                sh "docker build -t openjdk-10-ev3-test ."
             }
         }
         stage("Test") {
             steps {
-                sh "rm -rf    /home/jenkins/workspace/" + JOB_NAME + "/build"
-                sh "mkdir -p  /home/jenkins/workspace/" + JOB_NAME + "/build"
-                sh "chmod 777 /home/jenkins/workspace/" + JOB_NAME + "/build"
-                sh "docker run --rm -v /home/jenkins/workspace/" + JOB_NAME + "/build:/build -e JDKVER='" + JDKVER_VALUE + "' -e JDKVM='client' -e AUTOBUILD='1' ev3dev-lang-java:jdk-build"
+                sh "docker run --rm openjdk-10-ev3-test"
+            }
+        }
+    }
+    post {
+        always {
+            script {
+                try {
+                    sh "docker rmi openjdk-10-ev3-test 2>/dev/null"
+                } catch (err) {}
             }
         }
     }
