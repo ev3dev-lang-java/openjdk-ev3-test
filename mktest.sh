@@ -30,7 +30,7 @@ function run_tests() {
     cd openjdk-tests
 
     log "Calling get script."
-    ls /opt/jdktest/
+    export JAVA_IMPL=hotspot
     export BUILD_LIST=openjdk_regression
     export JAVA_BIN=/opt/jdktest/jdk/bin
     export SPEC=linux_arm
