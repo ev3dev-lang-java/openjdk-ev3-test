@@ -51,7 +51,7 @@ function run_tests() {
     log "Starting tests."
     # make sanety
     make jdk_math
-    #make jdk_lang
+    make jdk_lang
     #make jdk_io
     #make jdk_beans
     #make jdk_other
