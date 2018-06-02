@@ -21,7 +21,7 @@ function setup_jdk() {
 
     log "Configuring JDK."
     interpreterize java
-    #interpreterize javac
+    interpreterize javac
     sudo update-alternatives --install /usr/bin/java java "$(pwd)/jdk/bin/java" 2000
     java -version
     #wget https://github.com/ev3dev-lang-java/openjdk-ev3-test/raw/master/example/HelloWorld.class
@@ -34,12 +34,12 @@ function run_tests() {
     cd openjdk-tests
 
     log "Calling get script."
-    export JAVA_IMPL=hotspot
+    #export JAVA_IMPL=hotspot
     export BUILD_LIST=openjdk_regression
     export JAVA_BIN=/opt/jdktest/jdk/bin
     export SPEC=linux_arm
-    export JAVA_VERSION=SE100 #SE90
-    ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux_arm   -v    openjdk10
+    export JAVA_VERSION=SE90
+    ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux_arm   -v    openjdk9
     cd TestConfig
 
     log "Calling configure."
