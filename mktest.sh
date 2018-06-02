@@ -22,9 +22,10 @@ function setup_jdk() {
     log "Configuring JDK."
     interpreterize java
     #interpreterize javac
+    sudo update-alternatives --install /usr/bin/java java "$(pwd)/jdk/bin/java" 2000
     java -version
-    wget https://github.com/ev3dev-lang-java/openjdk-ev3-test/raw/master/example/HelloWorld.class
-    java HelloWorld
+    #wget https://github.com/ev3dev-lang-java/openjdk-ev3-test/raw/master/example/HelloWorld.class
+    #java HelloWorld
 }
 
 function run_tests() {
