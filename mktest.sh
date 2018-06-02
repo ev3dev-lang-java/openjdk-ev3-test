@@ -14,7 +14,7 @@ function interpreterize() {
 
 function setup_jdk() {
     log "Downloading latest JDK-EV3."
-    wget -nv https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk-9-ev3/lastSuccessfulBuild/artifact/build/jdk-ev3.tar.gz
+    wget -nv https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk-10-ev3/lastSuccessfulBuild/artifact/build/jdk-ev3.tar.gz
 
     log "Extracting JDK."
     tar -xf jdk-ev3.tar.gz
@@ -34,8 +34,8 @@ function run_tests() {
     export BUILD_LIST=openjdk_regression
     export JAVA_BIN=/opt/jdktest/jdk/bin
     export SPEC=linux_arm
-    export JAVA_VERSION=SE90
-    ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux_arm   -v    openjdk9
+    export JAVA_VERSION=SE100 #SE90
+    ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux_arm   -v    openjdk10
     cd TestConfig
 
     log "Calling configure."
