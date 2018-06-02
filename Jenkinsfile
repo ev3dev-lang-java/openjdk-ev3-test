@@ -22,6 +22,9 @@ pipeline {
     post {
         always {
             script {
+                step([$class: "TapPublisher", testResults: "**/*.tap"])
+                junit allowEmptyResults: true, keepLongStdio: true, testResults: '**/work/**/*.jtr.xml, **/junitreports/**/*.xml'
+
                 try {
                     sh "docker rmi openjdk-10-ev3-test 2>/dev/null"
                 } catch (err) {}
