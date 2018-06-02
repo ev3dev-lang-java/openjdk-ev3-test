@@ -21,7 +21,10 @@ function setup_jdk() {
 
     log "Configuring JDK."
     interpreterize java
-    interpreterize javac
+    #interpreterize javac
+    java -version
+    wget https://github.com/ev3dev-lang-java/openjdk-ev3-test/raw/master/example/HelloWorld.class
+    java HelloWorld
 }
 
 function run_tests() {
