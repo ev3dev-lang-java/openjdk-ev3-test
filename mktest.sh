@@ -39,7 +39,7 @@ function run_tests() {
     export JAVA_BIN=/opt/jdktest/jdk/bin
     export SPEC=linux_arm
     export JAVA_VERSION=SE100
-    ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux_arm   -v    openjdk9
+    ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux_arm   -v    openjdk10
     cd TestConfig
 
     log "Calling configure."
