@@ -32,7 +32,6 @@ function run_tests() {
     log "Downloading tests."
     git clone --depth 1 https://github.com/jabrena/openjdk-tests.git
     cd openjdk-tests
-    cat ./openjdk_regression/ProblemList_openjdk10-openj9.txt
 
     log "Calling get script."
     #export JAVA_IMPL=hotspot
@@ -52,7 +51,7 @@ function run_tests() {
     log "Starting tests."
     # make sanety
     make jdk_math
-    #make jdk_lang
+    make jdk_lang
     #make jdk_io
     #make jdk_beans
     #make jdk_other
