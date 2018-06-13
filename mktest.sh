@@ -30,16 +30,16 @@ function setup_jdk() {
 
 function run_tests() {
     log "Downloading tests."
-    git clone --depth 1 https://github.com/AdoptOpenJDK/openjdk-tests.git
+    git clone --depth 1 https://github.com/jabrena/openjdk-tests.git
     cd openjdk-tests
 
     log "Calling get script."
     #export JAVA_IMPL=hotspot
     export BUILD_LIST=openjdk_regression
     export JAVA_BIN=/opt/jdktest/jdk/bin
-    export SPEC=linux_arm
+    export SPEC=linux-arm
     export JAVA_VERSION=SE90
-    ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux_arm   -v    openjdk9
+    ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux-arm   -v    openjdk9
     cd TestConfig
 
     log "Calling configure."
