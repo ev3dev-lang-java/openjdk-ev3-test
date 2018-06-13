@@ -71,6 +71,8 @@ function run_tests() {
     #make jdk_jdi
     #make jdk_jfr
     ls /opt/jdktest/jvmtest/openjdk_regression/report/
+    pwd
+    ls
 }
 
 setup_jdk
