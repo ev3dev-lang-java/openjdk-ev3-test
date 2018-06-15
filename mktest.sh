@@ -52,8 +52,8 @@ function run_tests() {
     # make sanety
     #make jdk_math
     #make jdk_lang
-    make jdk_io
-    #make jdk_beans
+    #make jdk_io
+    make jdk_beans
     #make jdk_other
     #make jdk_net
     #make jdk_nio
