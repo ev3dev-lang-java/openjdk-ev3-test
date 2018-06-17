@@ -34,7 +34,7 @@ function run_tests() {
     cd openjdk-tests
 
     log "Calling get script."
-    #export JAVA_IMPL=hotspot
+    export JAVA_IMPL=hotspot
     export BUILD_LIST=openjdk_regression
     export JAVA_BIN=/opt/jdktest/jdk/bin
     export SPEC=linux-arm
@@ -50,13 +50,13 @@ function run_tests() {
 
     log "Starting tests."
     # make sanety
-    #make jdk_math
+    make jdk_math
     #make jdk_lang
     #make jdk_io
     #make jdk_beans
     #make jdk_other
     #make jdk_net
-    make jdk_nio
+    #make jdk_nio
     #make jdk_security1
     #make jdk_security2
     #make jdk_security3
