@@ -56,8 +56,8 @@ function run_tests() {
     #make jdk_beans
     #make jdk_other
     #make jdk_net
-    make jdk_nio
-    #make jdk_security1
+    #make jdk_nio
+    make jdk_security1
     #make jdk_security2
     #make jdk_security3
     #make jdk_text
