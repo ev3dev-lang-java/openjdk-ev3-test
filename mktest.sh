@@ -59,8 +59,8 @@ function run_tests() {
     #make jdk_nio
     #make jdk_security1
     #make jdk_security2
-    make jdk_security3
-    #make jdk_text
+    #make jdk_security3
+    make jdk_text
     #make jdk_util
     #make jdk_time
     #make jdk_management
