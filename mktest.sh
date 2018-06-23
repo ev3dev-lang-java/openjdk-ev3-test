@@ -61,8 +61,8 @@ function run_tests() {
     #make jdk_security2
     #make jdk_security3
     #make jdk_text
-    make jdk_util
-    #make jdk_time
+    #make jdk_util
+    make jdk_time
     #make jdk_management
     #make jdk_jmx
     #make jdk_rmi
