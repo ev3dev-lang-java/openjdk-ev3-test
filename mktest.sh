@@ -54,7 +54,7 @@ function run_tests() {
     #make jdk_math
     #make jdk_lang
     #make jdk_io
-    #make jdk_beans
+    make jdk_beans
     #make jdk_other
     #make jdk_net
     #make jdk_nio
@@ -63,7 +63,7 @@ function run_tests() {
     #make jdk_security3
     #make jdk_text
     #make jdk_util
-    make jdk_time
+    #make jdk_time
     #make jdk_management
     #make jdk_jmx
     #make jdk_rmi
