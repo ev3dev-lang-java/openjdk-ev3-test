@@ -30,7 +30,8 @@ function setup_jdk() {
 
 function run_tests() {
     log "Downloading tests."
-    git clone --depth 1 https://github.com/jabrena/openjdk-tests.git
+    git clone --depth 1 https://github.com/ev3dev-lang-java/openjdk-tests.git
+    git checkout feature/ev3dev
     cd openjdk-tests
 
     log "Calling get script."
