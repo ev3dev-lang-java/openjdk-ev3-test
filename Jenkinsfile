@@ -18,7 +18,7 @@ pipeline {
                 sh "mkdir        ./insider"
                 sh "cp mktest.sh ./insider/"
                 sh "chmod 777 -R ./insider"
-                sh "docker run --rm -v $(realpath ./insider):/opt/jdktest openjdk-10-ev3-test"
+                sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test"
             }
         }
     }
