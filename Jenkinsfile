@@ -15,23 +15,28 @@ pipeline {
         }
         stage("Test") {
             steps {
+                try {
+                    sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test 'rm -rf /opt/jdktest'"
+                } catch (err) {}
+                try {
+                    sh "rm -rf insider insider.tar.gz"
+                } catch (err) {}
                 sh "mkdir        ./insider"
                 sh "cp mktest.sh ./insider/"
-                sh "chmod 777 -R ./insider"
+                sh "chmod 777    ./insider ./insider/mktest.sh"
                 sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test"
+            }
+        }
+        stage("Upload results") {
+            steps {
+                step([$class: "TapPublisher", testResults: "**/*.tap"])
+                junit allowEmptyResults: true, keepLongStdio: true, testResults: '**/work/**/*.jtr.xml, **/junitreports/**/*.xml'
             }
         }
     }
     post {
         always {
             script {
-                step([$class: "TapPublisher", testResults: "**/*.tap"])
-                junit allowEmptyResults: true, keepLongStdio: true, testResults: '**/work/**/*.jtr.xml, **/junitreports/**/*.xml'
-
-                sh "tar -czf insider.tar.gz insider"
-                archiveArtifacts artifacts: 'insider.tar.gz'
-                sh "rm -rf insider insider.tar.gz"
-
                 try {
                     sh "docker rmi openjdk-10-ev3-test 2>/dev/null"
                 } catch (err) {}
