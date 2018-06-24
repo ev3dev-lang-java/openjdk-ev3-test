@@ -40,6 +40,12 @@ pipeline {
         always {
             script {
                 try {
+                    sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test 'rm -rf /opt/jdktest'"
+                } catch (err) {}
+                try {
+                    sh "rm -rf insider"
+                } catch (err) {}
+                try {
                     sh "docker rmi openjdk-10-ev3-test 2>/dev/null"
                 } catch (err) {}
             }
