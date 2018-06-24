@@ -14,7 +14,7 @@ function interpreterize() {
 
 function setup_jdk() {
     log "Downloading latest JDK-EV3."
-    wget -nv https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk-10-ev3/lastSuccessfulBuild/artifact/build/jdk-ev3.tar.gz
+    wget -nv https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk10_build_ev3_linux/lastSuccessfulBuild/artifact/build/jdk-ev3.tar.gz
 
     log "Extracting JDK."
     tar -xf jdk-ev3.tar.gz
@@ -52,18 +52,18 @@ function run_tests() {
     log "Starting tests."
     # make sanety
     make jdk_math
-    make jdk_lang
-    make jdk_io
+    #make jdk_lang
+    #make jdk_io
     #make jdk_beans
     #make jdk_other
-    make jdk_net
-    make jdk_nio
-    make jdk_security1
-    make jdk_security2
+    #make jdk_net
+    #make jdk_nio
+    #make jdk_security1
+    #make jdk_security2
     #make jdk_security3
-    make jdk_text
-    make jdk_util
-    make jdk_time
+    #make jdk_text
+    #make jdk_util
+    #make jdk_time
     #make jdk_management
     #make jdk_jmx
     #make jdk_rmi
