@@ -15,12 +15,14 @@ pipeline {
         }
         stage("Test") {
             steps {
-                try {
-                    sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test 'rm -rf /opt/jdktest'"
-                } catch (err) {}
-                try {
-                    sh "rm -rf insider insider.tar.gz"
-                } catch (err) {}
+                script {
+                    try {
+                        sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test 'rm -rf /opt/jdktest'"
+                    } catch (err) {}
+                    try {
+                        sh "rm -rf insider insider.tar.gz"
+                    } catch (err) {}
+                }
                 sh "mkdir        ./insider"
                 sh "cp mktest.sh ./insider/"
                 sh "chmod 777    ./insider ./insider/mktest.sh"
