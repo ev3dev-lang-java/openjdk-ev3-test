@@ -71,8 +71,8 @@ function run_tests() {
     #make jdk_management
     #make jdk_jmx
     #make jdk_rmi
-    make jdk_sound
-    #make jdk_tools
+    #make jdk_sound
+    make jdk_tools
     #make jdk_jdi
     #make jdk_jfr
     ls /opt/jdktest/jvmtest/openjdk_regression/report/
