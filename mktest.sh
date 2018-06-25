@@ -70,8 +70,8 @@ function run_tests() {
     #make jdk_time
     #make jdk_management
     #make jdk_jmx
-    make jdk_rmi
-    #make jdk_sound
+    #make jdk_rmi
+    make jdk_sound
     #make jdk_tools
     #make jdk_jdi
     #make jdk_jfr
