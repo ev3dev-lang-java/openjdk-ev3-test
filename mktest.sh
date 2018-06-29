@@ -55,8 +55,8 @@ function run_tests() {
 
     log "Starting tests."
     # make sanety
-    #make jdk_math
-    #make jdk_lang
+    make jdk_math
+    make jdk_lang
     #make jdk_io
     #make jdk_beans
     #make jdk_other
@@ -74,7 +74,7 @@ function run_tests() {
     #make jdk_sound
     #make jdk_tools
     #make jdk_jdi
-    make jdk_jfr
+    #make jdk_jfr
     ls /opt/jdktest/jvmtest/openjdk_regression/report/
 }
 
