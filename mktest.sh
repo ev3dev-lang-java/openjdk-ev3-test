@@ -34,8 +34,9 @@ function setup_jdk() {
 
 function run_tests() {
     log "Downloading tests."
-    git clone --branch "feature/ev3dev" --depth 1 "https://github.com/ev3dev-lang-java/openjdk-tests.git"
+    git clone https://github.com/ev3dev-lang-java/openjdk-tests.git
     cd openjdk-tests
+    git checkout feature/ev3dev
 
     log "Calling get script."
     #export JAVA_IMPL=hotspot
@@ -74,6 +75,7 @@ function run_tests() {
     #make jdk_tools
     #make jdk_jdi
     #make jdk_jfr
+    ls /opt/jdktest/jvmtest/openjdk_regression/report/
 }
 
 setup_jdk
