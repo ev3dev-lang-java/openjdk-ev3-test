@@ -8,10 +8,15 @@ pipeline {
                 checkout scm
             }
         }
-        stage ("Fuckup recovery") {
+        stage ("State query") {
             steps {
                 sh "docker ps -a"
                 sh "docker images"
+                sh "df -h"
+            }
+        }
+        stage ("Fuckup recovery") {
+            steps {
                 sh "docker rmi 0d958b969cad || true"
                 sh "docker rmi 5bb714a3fce3 || true"
                 sh "docker rmi d8e48ffc4fe4 || true"
@@ -27,6 +32,9 @@ pipeline {
                 sh "docker rmi 2f58f40627c2 || true"
                 sh "docker rmi ca46859ebca4 || true"
                 sh "docker rmi 8afc6d4ac4ac || true"
+                sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test rm -rf /opt/jdktest || true"
+                sh "rm -rf insider insider.tar.gz || true"
+                sh "docker rmi openjdk-10-ev3-test || true"
             }
         }
     }
