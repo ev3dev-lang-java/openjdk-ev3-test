@@ -22,5 +22,11 @@ pipeline {
                 sh "docker rmi openjdk-10-ev3-test || true"
             }
         }
+        stage ("Docker cleanup") {
+            steps {
+                sh "for i in $(docker ps -a -q);  do docker kill $i || true; docker rm $i || true; done"
+                sh "for i in $(docker images -q); do docker rmi $i  || true; done"
+            }
+        }
     }
 }
