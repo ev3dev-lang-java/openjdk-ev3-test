@@ -10,7 +10,7 @@ pipeline {
         }
         stage("Build") {
             steps {
-                #sh "docker build -t openjdk-10-ev3-test ."
+                //sh "docker build -t openjdk-10-ev3-test ."
                 sh "docker ps -a"
                 sh "docker images"
             }
