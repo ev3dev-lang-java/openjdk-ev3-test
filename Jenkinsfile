@@ -10,14 +10,16 @@ pipeline {
         }
         stage("Build") {
             steps {
-                sh "docker build -t openjdk-10-ev3-test ."
+                #sh "docker build -t openjdk-10-ev3-test ."
+                sh "docker ps -a"
+                sh "docker images"
             }
         }
         stage("Test") {
             steps {
                 script {
                     try {
-                        sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test rm -rf /opt/jdktest"
+                        sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest debian:stretch rm -rf /opt/jdktest"
                     } catch (err) {}
                     try {
                         sh "rm -rf insider insider.tar.gz"
