@@ -12,10 +12,21 @@ pipeline {
             steps {
                 sh "docker ps -a"
                 sh "docker images"
-                sh "docker kill 8cbac0d1466d 95bc540becb5"
-                sh "docker rm d032990b124c d809954aa35b 6dd176a74a38 42bea8975800 a1858eb48c05 8cbac0d1466d 95bc540becb5"
-                sh "docker rmi 0d958b969cad 5bb714a3fce3 d8e48ffc4fe4 bf16b2e8af92 38a0f4d209ac e4dd33770918 d10212ee267b c4788ed6de1b a37a0fc15498 153fcc0af166 d51ad9242ad8 4d62521137c8 2f58f40627c2 ca46859ebca4 8afc6d4ac4ac"
-
+                sh "docker rmi 0d958b969cad || true"
+                sh "docker rmi 5bb714a3fce3 || true"
+                sh "docker rmi d8e48ffc4fe4 || true"
+                sh "docker rmi bf16b2e8af92 || true"
+                sh "docker rmi 38a0f4d209ac || true"
+                sh "docker rmi e4dd33770918 || true"
+                sh "docker rmi d10212ee267b || true"
+                sh "docker rmi c4788ed6de1b || true"
+                sh "docker rmi a37a0fc15498 || true"
+                sh "docker rmi 153fcc0af166 || true"
+                sh "docker rmi d51ad9242ad8 || true"
+                sh "docker rmi 4d62521137c8 || true"
+                sh "docker rmi 2f58f40627c2 || true"
+                sh "docker rmi ca46859ebca4 || true"
+                sh "docker rmi 8afc6d4ac4ac || true"
             }
         }
     }
