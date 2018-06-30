@@ -15,6 +15,7 @@ pipeline {
                 sh "df -h"
             }
         }
+        /*
         stage ("Fuckup recovery") {
             steps {
                 sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest debian:stretch /bin/sh -c 'rm -rf /opt/jdktest/*' || true"
@@ -28,5 +29,6 @@ pipeline {
                 sh "for i in \$(docker images -q); do docker rmi \$i  || true; done"
             }
         }
+        */
     }
 }
