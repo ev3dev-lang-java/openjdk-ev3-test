@@ -52,12 +52,10 @@ function jdk_setup() {
     log "Extracting JDK."
     tar -xf "jdk-${ARCH}.tar.gz"
 
-    arch | grep -e "arm" -e "aarch"
-    if [ "$?" -eq 1 ]; then
-        log "Configuring JDK."
-        interpreterize java  direct
-        interpreterize javac wrap
-    fi
+
+    log "Configuring JDK."
+    interpreterize java  direct
+    interpreterize javac wrap
 
     ./jdk/bin/java -version
 }
