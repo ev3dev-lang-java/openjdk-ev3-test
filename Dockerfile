@@ -1,15 +1,13 @@
 FROM ev3dev/ev3dev-stretch-ev3-generic
 
 # Add non-root user for QEMU
-RUN adduser --disabled-password --gecos '' --uid 1000 --gid 1000 docker && \
-    adduser docker sudo && \
+RUN adduser robot sudo && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Copy qemu & scripts to the container
 COPY mktest.sh /opt/jdktest/
-RUN mkdir -p /opt/jdktest && \
-    chown docker:docker -R /opt/jdktest && \
-    chmod 777 -R /opt/jdktest
+RUN chown -R robot:robot /opt/jdktest && \
+    chmod -R 777         /opt/jdktest
 
 # Use this when there is a need for input during docker image building process
 ENV DEBIAN_FRONTEND noninteractive
@@ -22,5 +20,5 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Set startup script
-USER docker
+USER robot
 CMD [ "/bin/bash", "/opt/jdktest/mktest.sh" ]
