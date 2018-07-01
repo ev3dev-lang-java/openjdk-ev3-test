@@ -1,4 +1,14 @@
 // Jenkins pipeline script
+
+// steps map
+def stepMap = [
+    'Download tested JDK': 'jdk_setup',
+    'Download tests':      'test_download',
+    'Build tests':         'test_build',
+    'Run jdk_math':        'test_run jdk_math',
+]
+
+// build script
 node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
 
     // predefine docker image
@@ -16,18 +26,10 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
         }
         // run inside image
         image.inside {
-            // our test script
-            stage ('Download tested JDK') {
-                sh '/bin/bash /opt/jdktest/mktest.sh jdk_setup'
-            }
-            stage ('Download tests') {
-                sh '/bin/bash /opt/jdktest/mktest.sh test_download'
-            }
-            stage ('Build tests') {
-                sh '/bin/bash /opt/jdktest/mktest.sh test_build'
-            }
-            stage ('Run tests') {
-                sh '/bin/bash /opt/jdktest/mktest.sh test_run'
+            for (kv in mapToList(stepMap)) {
+                stage(kv[0]) {
+                    sh "/bin/bash /opt/jdktest/mktest.sh ${kv[1]}"
+                }
             }
             // and then submit the results
             stage ('Publish results') {
@@ -41,4 +43,12 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
             cleanWs()
         }
     }
+}
+
+// Required due to JENKINS-27421
+@NonCPS
+List<List<?>> mapToList(Map map) {
+  return map.collect { it ->
+    [it.key, it.value]
+  }
 }
