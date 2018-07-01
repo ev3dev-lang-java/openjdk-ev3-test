@@ -9,6 +9,12 @@ ROOTDIR="$(dirname ${BASH_SOURCE[0]})"
 cd "$ROOTDIR"
 umask 000
 
+#export JAVA_IMPL=hotspot
+export BUILD_LIST=openjdk_regression
+export JAVA_BIN=/opt/jdktest/jdk/bin
+export SPEC=linux-arm
+export JAVA_VERSION=SE100
+
 #####################
 # Utility functions #
 #####################
@@ -54,11 +60,6 @@ function test_download() {
 
     cd "$ROOTDIR/openjdk-tests"
     log "Calling get script."
-    #export JAVA_IMPL=hotspot
-    export BUILD_LIST=openjdk_regression
-    export JAVA_BIN=/opt/jdktest/jdk/bin
-    export SPEC=linux-arm
-    export JAVA_VERSION=SE100
     ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux-arm   -v    openjdk10
 }
 
