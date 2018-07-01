@@ -3,8 +3,7 @@
 // steps map
 def stepMap = [
     'Download tested JDK': 'jdk_setup',
-    'Download tests':      'test_download',
-    'Build tests':         'test_build',
+    'Prepare tests':       'test_prepare',
     'Run jdk_math':        'test_run jdk_math',
 ]
 
@@ -17,10 +16,9 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
     // from here we can do cleanup
     try {
         // clone our repo
-        stage('Checkout SCM') {
-            checkout scm
-            sh "chmod +x ${env.WORKSPACE}/mktest.sh"
-        }
+        checkout scm
+        sh "chmod +x ${env.WORKSPACE}/mktest.sh"
+
         // build our image
         stage('Docker build') {
             image = docker.build("openjdk-10-ev3-test:latest")

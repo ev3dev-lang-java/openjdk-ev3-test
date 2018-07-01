@@ -53,7 +53,7 @@ function jdk_setup() {
     java -version
 }
 
-function test_download() {
+function test_prepare() {
     cd "$ROOTDIR"
     log "Cloning openjdk-tests."
     git clone --depth "1" --branch "feature/ev3dev" "https://github.com/ev3dev-lang-java/openjdk-tests.git"
@@ -61,14 +61,10 @@ function test_download() {
     cd "$ROOTDIR/openjdk-tests"
     log "Calling get script."
     ./get.sh   -t "$ROOTDIR/openjdk-tests"   -p   linux-arm   -v    openjdk10
-}
 
-function test_build() {
     cd "$ROOTDIR/openjdk-tests/TestConfig"
-
     log "Calling configure."
     make -f run_configure.mk
-
     log "Calling compile."
     make compile
 }
@@ -107,8 +103,7 @@ function test_run() {
 
 if [ "$#" -eq 0 ]; then
     jdk_setup
-    test_download
-    test_build
+    test_prepare
     test_run
 else
     "$@"
