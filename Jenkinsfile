@@ -19,6 +19,7 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
         // clone our repo
         stage('Checkout SCM') {
             checkout scm
+            sh "chmod +x ${env.WORKSPACE}/mktest.sh"
         }
         // build our image
         stage('Docker build') {
@@ -28,7 +29,7 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
         image.inside {
             for (kv in mapToList(stepMap)) {
                 stage(kv[0]) {
-                    sh "/bin/bash /opt/jdktest/mktest.sh ${kv[1]}"
+                    sh "/bin/bash ${env.WORKSPACE}/mktest.sh ${kv[1]}"
                 }
             }
             // and then submit the results

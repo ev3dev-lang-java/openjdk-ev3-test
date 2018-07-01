@@ -11,7 +11,7 @@ umask 000
 
 #export JAVA_IMPL=hotspot
 export BUILD_LIST=openjdk_regression
-export JAVA_BIN=/opt/jdktest/jdk/bin
+export JAVA_BIN="$ROOTDIR/jdk/bin"
 export SPEC=linux-arm
 export JAVA_VERSION=SE100
 
@@ -60,7 +60,7 @@ function test_download() {
 
     cd "$ROOTDIR/openjdk-tests"
     log "Calling get script."
-    ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux-arm   -v    openjdk10
+    ./get.sh   -t "$ROOTDIR/openjdk-tests"   -p   linux-arm   -v    openjdk10
 }
 
 function test_build() {
