@@ -40,11 +40,10 @@ function interpreterize() {
 function jdk_setup() {
     cd "$ROOTDIR"
 
-    if [ "$1" != "ev3" ] && [ "$1" != "rpi1" ] && [ "$1" != "rpi2" ] && [ "$1" != "rpi3" ]; then
-        echo "Bad architecture: $1" >2
+    ARCH="$1"
+    if [ "$ARCH" != "ev3" ] && [ "$ARCH" != "rpi1" ] && [ "$ARCH" != "rpi2" ] && [ "$ARCH" != "rpi3" ]; then
+        echo "Bad architecture: $ARCH" >2
         exit 1
-    else
-        ARCH="$1"
     fi
 
     log "Downloading latest JDK for ${ARCH}."
@@ -54,7 +53,7 @@ function jdk_setup() {
     tar -xf "jdk-${ARCH}.tar.gz"
 
     arch | grep -e "arm" -e "aarch"
-    if [ "$?" -eq 1 ] && ; then
+    if [ "$?" -eq 1 ]; then
         log "Configuring JDK."
         interpreterize java  direct
         interpreterize javac wrap
