@@ -1,7 +1,5 @@
 // Jenkins pipeline script
-node {
-    // run only on docker test linuxen
-    label '( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )'
+node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
 
     // predefine docker image
     def image
