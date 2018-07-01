@@ -8,27 +8,47 @@ pipeline {
                 checkout scm
             }
         }
-        stage ("State query") {
+        stage("Build") {
             steps {
-                sh "docker ps -a"
-                sh "docker images"
-                sh "df -h"
+                sh "docker build -t openjdk-10-ev3-test ."
             }
         }
-        /*
-        stage ("Fuckup recovery") {
+        stage("Test") {
             steps {
-                sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest debian:stretch /bin/sh -c 'rm -rf /opt/jdktest/*' || true"
-                sh "rm -rf insider insider.tar.gz || true"
-                sh "docker rmi openjdk-10-ev3-test || true"
+                script {
+                    try {
+                        sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test rm -rf /opt/jdktest"
+                    } catch (err) {}
+                    try {
+                        sh "rm -rf insider insider.tar.gz"
+                    } catch (err) {}
+                }
+                sh "mkdir        ./insider"
+                sh "cp mktest.sh ./insider/"
+                sh "chmod 777    ./insider ./insider/mktest.sh"
+                sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test"
             }
         }
-        stage ("Docker cleanup") {
+        stage("Upload results") {
             steps {
-                sh "for i in \$(docker ps -a -q);  do docker kill \$i || true; docker rm \$i || true; done"
-                sh "for i in \$(docker images -q); do docker rmi \$i  || true; done"
+                step([$class: "TapPublisher", testResults: "**/*.tap"])
+                junit allowEmptyResults: true, keepLongStdio: true, testResults: '**/work/**/*.jtr.xml, **/junitreports/**/*.xml'
             }
         }
-        */
+    }
+    post {
+        always {
+            script {
+                try {
+                    sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test rm -rf /opt/jdktest"
+                } catch (err) {}
+                try {
+                    sh "rm -rf insider"
+                } catch (err) {}
+                try {
+                    sh "docker rmi openjdk-10-ev3-test 2>/dev/null"
+                } catch (err) {}
+            }
+        }
     }
 }
