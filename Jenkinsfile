@@ -5,6 +5,7 @@ def prepMap = [
     'Download tested JDK': "jdk_setup ${params.ARCH}",
     'Prepare tests':       'test_prepare',
 ]
+// list of parallel jobs (top-level list is executed sequentially, map entries are executed in parallel)
 def jdkJobs = [
     [ 'Run jdk_math':        'test_run jdk_math',
       'Run jdk_lang':        'test_run jdk_lang',       ],

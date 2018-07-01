@@ -7,7 +7,7 @@ There are currently three ways to the tests:
 
 1. **Jenkinsfile**
 
-Just add pipeline from this repo to Jenkins. Tests are configured in the Jenkinsfile at the top in the `jdkMap` associative array.
+Just add pipeline from this repo to Jenkins. Tests are configured in the Jenkinsfile at the top in the `jdkJobs` list.
 
 For each test a separate stage will be generated.
 
