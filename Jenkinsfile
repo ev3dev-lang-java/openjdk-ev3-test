@@ -12,7 +12,7 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
         }
         // build our image
         stage('Docker build') {
-            image = docker.build("openjdk-10-ev3-test:${env.BUILD_ID}")
+            image = docker.build("openjdk-10-ev3-test:latest")
         }
         // run inside image
         image.inside {
@@ -33,7 +33,6 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
         // remove leftover stuff
         stage ('Cleanup') {
             cleanWs()
-            sh "docker rmi -f ${image.id}"
         }
     }
 }
