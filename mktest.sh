@@ -1,6 +1,7 @@
 #/bin/bash
 set -e
 cd "$(dirname ${BASH_SOURCE[0]})"
+umask 000
 
 function log() {
     echo "[TEST] " $@
