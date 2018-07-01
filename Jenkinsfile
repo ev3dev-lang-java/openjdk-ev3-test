@@ -59,11 +59,7 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
                 for (kv in mapToList(map)) {
                     String name = kv[0]
                     String work = kv[1]
-                    stage(name) {
-                        jobs[name] = {
-                            sh "/bin/bash ${env.WORKSPACE}/mktest.sh ${work}"
-                        }
-                    }
+                    jobs[name] = generateTestJob(name, work)
                 }
                 parallel jobs
             }
@@ -78,6 +74,14 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
         // remove leftover stuff
         stage ('Cleanup') {
             cleanWs()
+        }
+    }
+}
+
+def generateTestJob(name, work) {
+    return {
+        stage(name) {
+            sh "/bin/bash ${env.WORKSPACE}/mktest.sh ${work}"
         }
     }
 }
