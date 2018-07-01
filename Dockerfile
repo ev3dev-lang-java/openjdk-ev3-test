@@ -4,11 +4,6 @@ FROM ev3dev/ev3dev-stretch-ev3-generic
 RUN adduser robot sudo && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-# Copy qemu & scripts to the container
-COPY mktest.sh /opt/jdktest/
-RUN chown -R 1000:1000 /opt && \
-    chmod -R 777       /opt
-
 # Use this when there is a need for input during docker image building process
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -18,6 +13,11 @@ RUN apt-get update && \
       make curl apt-utils git ant ant-contrib libtext-csv-perl libjson-perl sudo && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# Copy qemu & scripts to the container
+COPY mktest.sh /opt/jdktest/
+RUN chown -R 1000:1000 /opt && \
+    chmod -R 777       /opt
 
 # Set startup script
 USER robot
