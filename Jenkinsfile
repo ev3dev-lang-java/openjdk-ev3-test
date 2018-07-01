@@ -57,10 +57,10 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
                 def map = jdkMap
                 def jobs = [:]
                 for (kv in mapToList(map)) {
-                    jobs[kv[0]] = {
-                        def name = kv[0]
-                        def work = kv[1]
-                        stage("${name}") {
+                    String name = kv[0]
+                    String work = kv[1]
+                    stage(name) {
+                        jobs[name] = {
                             sh "/bin/bash ${env.WORKSPACE}/mktest.sh ${work}"
                         }
                     }
