@@ -1,54 +1,41 @@
-pipeline {
-    agent {
-        label '( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )'
-    }
-    stages {
-        stage('checkout') {
-            steps {
-                checkout scm
-            }
+// Jenkins pipeline script
+node {
+    // run only on docker test linuxen
+    label '( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )'
+
+    // predefine docker image
+    def image
+
+    // from here we can do cleanup
+    try {
+        // clone our repo
+        stage('Checkout SCM') {
+            checkout scm
         }
-        stage("Build") {
-            steps {
-                sh "docker build -t openjdk-10-ev3-test ."
-            }
+        // build our image
+        stage('Docker build') {
+            image = docker.build("openjdk-10-ev3-test:${env.BUILD_ID}")
         }
-        stage("Test") {
-            steps {
-                script {
-                    try {
-                        sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test rm -rf /opt/jdktest"
-                    } catch (err) {}
-                    try {
-                        sh "rm -rf insider insider.tar.gz"
-                    } catch (err) {}
+        // run inside image
+        image.inside('--rm') {
+            // in the tests directory
+            dir('/opt/jdktest') {
+                // our test script
+                stage ('Run tests') {
+                    sh './mktest.sh'
                 }
-                sh "mkdir        ./insider"
-                sh "cp mktest.sh ./insider/"
-                sh "chmod 777    ./insider ./insider/mktest.sh"
-                sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test"
+                // and then submti the results
+                stage ('Publish results') {
+                    step([$class: "TapPublisher", testResults: "**/*.tap"])
+                    junit allowEmptyResults: true, keepLongStdio: true, testResults: '**/work/**/*.jtr.xml, **/junitreports/**/*.xml'
+                }
             }
         }
-        stage("Upload results") {
-            steps {
-                step([$class: "TapPublisher", testResults: "**/*.tap"])
-                junit allowEmptyResults: true, keepLongStdio: true, testResults: '**/work/**/*.jtr.xml, **/junitreports/**/*.xml'
-            }
-        }
-    }
-    post {
-        always {
-            script {
-                try {
-                    sh "docker run --rm -v \$(realpath ./insider):/opt/jdktest openjdk-10-ev3-test rm -rf /opt/jdktest"
-                } catch (err) {}
-                try {
-                    sh "rm -rf insider"
-                } catch (err) {}
-                try {
-                    sh "docker rmi openjdk-10-ev3-test 2>/dev/null"
-                } catch (err) {}
-            }
+    } finally {
+        // remove leftover stuff
+        stage ('Cleanup') {
+            cleanWs()
+            sh "docker rmi -f ${image.id}"
         }
     }
 }
