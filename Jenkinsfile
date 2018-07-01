@@ -17,10 +17,19 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
         // run inside image
         image.inside {
             // our test script
-            stage ('Run tests') {
-                sh '/bin/bash /opt/jdktest/mktest.sh'
+            stage ('Download tested JDK') {
+                sh '/bin/bash /opt/jdktest/mktest.sh jdk_setup'
             }
-            // and then submti the results
+            stage ('Download tests') {
+                sh '/bin/bash /opt/jdktest/mktest.sh test_download'
+            }
+            stage ('Build tests') {
+                sh '/bin/bash /opt/jdktest/mktest.sh test_build'
+            }
+            stage ('Run tests') {
+                sh '/bin/bash /opt/jdktest/mktest.sh test_run'
+            }
+            // and then submit the results
             stage ('Publish results') {
                 step([$class: "TapPublisher", testResults: "/opt/jdktest/**/*.tap"])
                 junit allowEmptyResults: true, keepLongStdio: true, testResults: '/opt/jdktest/**/work/**/*.jtr.xml, /opt/jdktest/**/junitreports/**/*.xml'
