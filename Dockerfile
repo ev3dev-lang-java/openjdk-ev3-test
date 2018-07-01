@@ -6,8 +6,8 @@ RUN adduser robot sudo && \
 
 # Copy qemu & scripts to the container
 COPY mktest.sh /opt/jdktest/
-RUN chown -R robot:robot /opt/jdktest && \
-    chmod -R 777         /opt/jdktest
+RUN chown -R 1000:1000 /opt && \
+    chmod -R 777       /opt
 
 # Use this when there is a need for input during docker image building process
 ENV DEBIAN_FRONTEND noninteractive
