@@ -54,11 +54,14 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
             }
 
             for (jdkMap in jdkJobs) {
+                def map = jdkMap
                 def jobs = [:]
-                for (kv in mapToList(jdkMap)) {
-                    jobs[kv[1]] = {
-                        stage(kv[0]) {
-                            sh "/bin/bash ${env.WORKSPACE}/mktest.sh ${kv[1]}"
+                for (kv in mapToList(map)) {
+                    def name = kv[0]
+                    def work = kv[1]
+                    jobs[name] = {
+                        stage("${name}") {
+                            sh "/bin/bash ${env.WORKSPACE}/mktest.sh ${work}"
                         }
                     }
                 }
