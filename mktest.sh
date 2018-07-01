@@ -40,17 +40,25 @@ function interpreterize() {
 function jdk_setup() {
     cd "$ROOTDIR"
 
-    log "Downloading latest JDK-EV3."
-    wget -nv https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk10_build_ev3_linux/lastSuccessfulBuild/artifact/build/jdk-ev3.tar.gz
+    if [ "$1" != "ev3" ] && [ "$1" != "rpi1" ] && [ "$1" != "rpi2" ] && [ "$1" != "rpi3" ]; then
+        echo "Bad architecture: $1" >2
+        exit 1
+    else
+        ARCH="$1"
+    fi
+
+    log "Downloading latest JDK for ${ARCH}."
+    wget -nv "https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk10_build_${ARCH}_linux/lastSuccessfulBuild/artifact/build/jdk-${ARCH}.tar.gz"
 
     log "Extracting JDK."
-    tar -xf jdk-ev3.tar.gz
+    tar -xf "jdk-${ARCH}.tar.gz"
 
-    log "Configuring JDK."
-    interpreterize java  direct
-    interpreterize javac wrap
-    sudo update-alternatives --install /usr/bin/java java "$(pwd)/jdk/bin/java" 2000
-    java -version
+    arch | grep -e "arm" -e "aarch"
+    if [ "$?" -eq 1 ] && ; then
+        log "Configuring JDK."
+        interpreterize java  direct
+        interpreterize javac wrap
+    fi
 }
 
 function test_prepare() {

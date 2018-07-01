@@ -2,7 +2,7 @@
 
 // steps map
 def stepMap = [
-    'Download tested JDK': 'jdk_setup',
+    'Download tested JDK': 'jdk_setup ev3',
     'Prepare tests':       'test_prepare',
     'Run jdk_math':        'test_run jdk_math',
 ]
