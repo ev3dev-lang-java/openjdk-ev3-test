@@ -5,29 +5,28 @@ def prepMap = [
     'Download tested JDK': "jdk_setup ${params.ARCH}",
     'Prepare tests':       'test_prepare',
 ]
-def jdkMap = [
-    'Run jdk_math':        'test_run jdk_math',
-    'Run jdk_lang':        'test_run jdk_lang',
-    'Run jdk_io':          'test_run jdk_io',
-    'Run jdk_beans':       'test_run jdk_beans',
-    'Run jdk_other':       'test_run jdk_other',
-    'Run jdk_net':         'test_run jdk_net',
-    'Run jdk_nio':         'test_run jdk_nio',
-    'Run jdk_security1':   'test_run jdk_security1',
-    'Run jdk_security2':   'test_run jdk_security2',
-    'Run jdk_security3':   'test_run jdk_security3',
-    'Run jdk_text':        'test_run jdk_text',
-    'Run jdk_util':        'test_run jdk_util',
-    'Run jdk_time':        'test_run jdk_time',
-    'Run jdk_management':  'test_run jdk_management',
-    'Run jdk_jmx':         'test_run jdk_jmx',
-    'Run jdk_rmi':         'test_run jdk_rmi',
-    'Run jdk_sound':       'test_run jdk_sound',
-    'Run jdk_tools':       'test_run jdk_tools',
-    'Run jdk_jdi':         'test_run jdk_jdi',
-    'Run jdk_jfr':         'test_run jdk_jfr',
+def jdkJobs = [
+    [ 'Run jdk_math':        'test_run jdk_math',
+      'Run jdk_lang':        'test_run jdk_lang',       ],
+    [ 'Run jdk_io':          'test_run jdk_io',
+      'Run jdk_beans':       'test_run jdk_beans',      ],
+    [ 'Run jdk_other':       'test_run jdk_other',
+      'Run jdk_net':         'test_run jdk_net',        ],
+    [ 'Run jdk_nio':         'test_run jdk_nio',
+      'Run jdk_security1':   'test_run jdk_security1',  ],
+    [ 'Run jdk_security2':   'test_run jdk_security2',
+      'Run jdk_security3':   'test_run jdk_security3',  ],
+    [ 'Run jdk_text':        'test_run jdk_text',
+      'Run jdk_util':        'test_run jdk_util',       ],
+    [ 'Run jdk_time':        'test_run jdk_time',
+      'Run jdk_management':  'test_run jdk_management', ],
+    [ 'Run jdk_jmx':         'test_run jdk_jmx',
+      'Run jdk_rmi':         'test_run jdk_rmi',        ],
+    [ 'Run jdk_sound':       'test_run jdk_sound',
+      'Run jdk_tools':       'test_run jdk_tools',      ],
+    [ 'Run jdk_jdi':         'test_run jdk_jdi',
+      'Run jdk_jfr':         'test_run jdk_jfr',        ],
 ]
-def MAX_CONCURRENT = 2
 
 // build script
 node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
@@ -53,31 +52,17 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
                 }
             }
 
-            // https://issues.jenkins-ci.org/browse/JENKINS-44085
-            latch = new java.util.concurrent.LinkedBlockingDeque(MAX_CONCURRENT)
-            // put a number of items into the queue to allow that number of branches to run
-            for (int i=0;i<MAX_CONCURRENT;i++) {
-                latch.offer("$i")
-            }
-            def jobs = [:]
-            for (kv in mapToList(jdkMap)) {
-                jobs[kv[1]] = {
-                    def thing = null
-                    // this will not allow proceeding until there is something in the queue.
-                    waitUntil {
-                        thing = latch.pollFirst();
-                        return thing != null;
-                    }
-                    try {
+            for (jdkMap in jdkJobs) {
+                def jobs = [:]
+                for (kv in mapToList(jdkMap)) {
+                    jobs[kv[1]] = {
                         stage(kv[0]) {
                             sh "/bin/bash ${env.WORKSPACE}/mktest.sh ${kv[1]}"
                         }
-                    } finally {
-                        latch.offer(thing)
                     }
                 }
+                parallel jobs
             }
-            parallel jobs
 
             // and then submit the results
             stage ('Publish results') {
