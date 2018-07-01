@@ -31,8 +31,8 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
             }
             // and then submit the results
             stage ('Publish results') {
-                step([$class: "TapPublisher", testResults: "/opt/jdktest/**/*.tap"])
-                junit allowEmptyResults: true, keepLongStdio: true, testResults: '/opt/jdktest/**/work/**/*.jtr.xml, /opt/jdktest/**/junitreports/**/*.xml'
+                step([$class: "TapPublisher", testResults: "**/*.tap"])
+                junit allowEmptyResults: true, keepLongStdio: true, testResults: '**/work/**/*.jtr.xml, **/junitreports/**/*.xml'
             }
         }
     } finally {
