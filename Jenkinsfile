@@ -18,7 +18,7 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
         image.inside {
             // our test script
             stage ('Run tests') {
-                sh '/opt/jdktest/mktest.sh'
+                sh '/bin/bash /opt/jdktest/mktest.sh'
             }
             // and then submti the results
             stage ('Publish results') {
