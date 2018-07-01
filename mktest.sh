@@ -57,25 +57,25 @@ function run_tests() {
     log "Starting tests."
     # make sanity
     make jdk_math
-    make jdk_lang
-    make jdk_io
-    make jdk_beans
-    make jdk_other
-    make jdk_net
-    make jdk_nio
-    make jdk_security1
-    make jdk_security2
-    make jdk_security3
-    make jdk_text
-    make jdk_util
-    make jdk_time
-    make jdk_management
-    make jdk_jmx
-    make jdk_rmi
-    make jdk_sound
-    make jdk_tools
-    make jdk_jdi
-    make jdk_jfr
+    #make jdk_lang
+    #make jdk_io
+    #make jdk_beans
+    #make jdk_other
+    #make jdk_net
+    #make jdk_nio
+    #make jdk_security1
+    #make jdk_security2
+    #make jdk_security3
+    #make jdk_text
+    #make jdk_util
+    #make jdk_time
+    #make jdk_management
+    #make jdk_jmx
+    #make jdk_rmi
+    #make jdk_sound
+    #make jdk_tools
+    #make jdk_jdi
+    #make jdk_jfr
 }
 
 setup_jdk
