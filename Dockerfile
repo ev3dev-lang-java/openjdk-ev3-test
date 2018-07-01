@@ -1,7 +1,7 @@
 FROM ev3dev/ev3dev-stretch-ev3-generic
 
 # Add non-root user for QEMU
-RUN adduser --disabled-password --gecos '' docker && \
+RUN adduser --disabled-password --gecos '' --uid 1000 --gid 1000 docker && \
     adduser docker sudo && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
@@ -9,7 +9,7 @@ RUN adduser --disabled-password --gecos '' docker && \
 COPY mktest.sh /opt/jdktest/
 RUN mkdir -p /opt/jdktest && \
     chown docker:docker -R /opt/jdktest && \
-    chmod +x /opt/jdktest/mktest.sh
+    chmod 777 -R /opt/jdktest
 
 # Use this when there is a need for input during docker image building process
 ENV DEBIAN_FRONTEND noninteractive
