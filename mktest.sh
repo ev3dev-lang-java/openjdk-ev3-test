@@ -58,6 +58,8 @@ function jdk_setup() {
         interpreterize java  direct
         interpreterize javac wrap
     fi
+
+    ./jdk/bin/java -version
 }
 
 function test_prepare() {
