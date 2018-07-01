@@ -15,7 +15,7 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
             image = docker.build("openjdk-10-ev3-test:${env.BUILD_ID}")
         }
         // run inside image
-        image.inside('--rm') {
+        image.inside {
             // in the tests directory
             dir('/opt/jdktest') {
                 // our test script
