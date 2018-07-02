@@ -42,7 +42,7 @@ function jdk_setup() {
 
     ARCH="$1"
     if [ "$ARCH" != "ev3" ] && [ "$ARCH" != "rpi1" ] && [ "$ARCH" != "rpi2" ] && [ "$ARCH" != "rpi3" ]; then
-        echo "Bad architecture: $ARCH" >2
+        echo "Bad architecture: $ARCH"
         exit 1
     fi
 
@@ -109,7 +109,7 @@ function test_run() {
 }
 
 if [ "$#" -eq 0 ]; then
-    jdk_setup
+    jdk_setup ev3
     test_prepare
     test_run
 else
