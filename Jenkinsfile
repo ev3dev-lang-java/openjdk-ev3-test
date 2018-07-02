@@ -50,29 +50,36 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
             }
         }
 
+        // for all parallelizable groups
         for (listIt in jdkJobs) {
             def list = listIt
             def jobs = [:]
+
+            // for all tasks to be run in parallel
             for (nameIt in list) {
                 String name = nameIt
+
+                // create job
                 jobs["Test ${name}"] = {
                     String orig    = "${env.WORKSPACE}/original"
                     String workdir = "${env.WORKSPACE}/${name}"
 
-                    sh "cp -rf ${orig}/jvmtest ${workdir}"
                     stage("Run ${name}") {
+                        // prepare isolated environment
+                        sh "cp -rf ${orig}/jvmtest ${workdir}"
+                        // run test
                         image.inside("-v ${orig}:/opt/jdktest -v ${workdir}:/opt/jdktest/jvmtest") {
                             sh "/bin/bash /opt/jdktest/mktest.sh test_run ${name}"
                         }
-                    }
-                    // and then submit the results
-                    stage ('Pub ${name}') {
+                        // and then submit the results
                         step([$class: "TapPublisher", testResults: "**/${name}/**/*.tap"])
                         junit allowEmptyResults: true, keepLongStdio: true, testResults: "**/${name}/**/work/**/*.jtr.xml, **/${name}/**/junitreports/**/*.xml"
+                        // and remove isolated environment
+                        sh "rm -rf ${workdir}"
                     }
-                    sh "rm -rf ${workdir}"
                 }
             }
+            // run in parallel
             parallel jobs
         }
 
