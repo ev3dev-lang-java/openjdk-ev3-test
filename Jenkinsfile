@@ -57,7 +57,7 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
                     String orig    = "${env.WORKSPACE}/original"
                     String workdir = "${env.WORKSPACE}/${name}"
 
-                    sh "cp -rf "${orig}/jvmtest" ${workdir}"
+                    sh "cp -rf ${orig}/jvmtest ${workdir}"
                     stage("Run ${name}") {
                         image.inside("-v ${orig}:/opt/jdktest -v ${workdir}:/opt/jdktest/jvmtest") {
                             sh "/bin/bash /opt/jdktest/mktest.sh test_run ${name}"
