@@ -5,30 +5,18 @@ def prepMap = [
     'Download tested JDK': "jdk_setup ${params.ARCH}",
     'Prepare tests':       'test_prepare',
 ]
-// list of parallel jobs (top-level list is executed sequentially, map entries are executed in parallel)
+// list of parallel jobs (top-level list is executed sequentially, sublists are executed in parallel)
 def jdkJobs = [
-    [ 'Run jdk_math':        'test_run jdk_math',
-      'Run jdk_lang':        'test_run jdk_lang',       ],
-    [ 'Run jdk_io':          'test_run jdk_io',
-      'Run jdk_other':       'test_run jdk_other',      ],
-    [ 'Run jdk_net':         'test_run jdk_net',
-      'Run jdk_nio':         'test_run jdk_nio',        ],
-    [ 'Run jdk_security1':   'test_run jdk_security1',
-      'Run jdk_security2':   'test_run jdk_security2',  ],
-    [ 'Run jdk_text':        'test_run jdk_text',
-      'Run jdk_util':        'test_run jdk_util',       ],
-    [ 'Run jdk_time':        'test_run jdk_time',
-      'Run jdk_management':  'test_run jdk_management', ],
-    [ 'Run jdk_jmx':         'test_run jdk_jmx',
-      'Run jdk_rmi':         'test_run jdk_rmi',        ],
-    [ 'Run jdk_sound':       'test_run jdk_sound',
-      'Run jdk_tools':       'test_run jdk_tools',      ],
-    [ 'Run jdk_jdi':         'test_run jdk_jdi',
-      'Run jdk_jfr':         'test_run jdk_jfr',        ],
-/*
-    'Run jdk_beans':       'test_run jdk_beans',
-    'Run jdk_security3':   'test_run jdk_security3',
-*/
+    [ 'jdk_math',      'jdk_lang'       ],
+    [ 'jdk_io',        'jdk_other'      ],
+    [ 'jdk_net',       'jdk_nio'        ],
+    [ 'jdk_security1', 'jdk_security2'  ],
+    [ 'jdk_text',      'jdk_util'       ],
+    [ 'jdk_time',      'jdk_management' ],
+    [ 'jdk_jmx',       'jdk_rmi'        ],
+    [ 'jdk_sound',     'jdk_tools'      ],
+    [ 'jdk_jdi',       'jdk_jfr'        ],
+  /*[ 'jdk_beans',     'jdk_security3'  ],*/
 ]
 
 // build script
@@ -54,36 +42,34 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
                     sh "/bin/bash ${env.WORKSPACE}/mktest.sh ${kv[1]}"
                 }
             }
-
-            for (jdkMap in jdkJobs) {
-                def map = jdkMap
-                def jobs = [:]
-                for (kv in mapToList(map)) {
-                    String name = kv[0]
-                    String work = kv[1]
-                    jobs[name] = generateTestJob(name, work)
-                }
-                parallel jobs
-            }
-
-            // and then submit the results
-            stage ('Publish results') {
-                step([$class: "TapPublisher", testResults: "**/*.tap"])
-                junit allowEmptyResults: true, keepLongStdio: true, testResults: '**/work/**/*.jtr.xml, **/junitreports/**/*.xml'
-            }
         }
+
+        for (listIt in jdkJobs) {
+            def list = listIt
+            def jobs = [:]
+            for (nameIt in list) {
+                String name = nameIt
+                jobs["Run ${name}"] = {
+                    stage("Run ${name}") {
+                        image.inside {
+                            sh "/bin/bash ${env.WORKSPACE}/mktest.sh test_run ${name}"
+                        }
+                    }
+                }
+            }
+            parallel jobs
+        }
+
+        // and then submit the results
+        stage ('Publish results') {
+            step([$class: "TapPublisher", testResults: "**/*.tap"])
+            junit allowEmptyResults: true, keepLongStdio: true, testResults: '**/work/**/*.jtr.xml, **/junitreports/**/*.xml'
+        }
+
     } finally {
         // remove leftover stuff
         stage ('Cleanup') {
             cleanWs()
-        }
-    }
-}
-
-def generateTestJob(name, work) {
-    return {
-        stage(name) {
-            sh "/bin/bash ${env.WORKSPACE}/mktest.sh ${work}"
         }
     }
 }
