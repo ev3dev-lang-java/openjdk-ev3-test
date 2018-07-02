@@ -7,13 +7,13 @@ def prepMap = [
 ]
 // list of parallel jobs (top-level list is executed sequentially, sublists are executed in parallel)
 def jdkJobs = [
-    [ 'jdk_math',      'jdk_lang'       ],
+    [ 'jdk_math',      'jdk_rmi'        ],
     [ 'jdk_io',        'jdk_other'      ],
     [ 'jdk_net',       'jdk_nio'        ],
     [ 'jdk_security1', 'jdk_security2'  ],
     [ 'jdk_text',      'jdk_util'       ],
     [ 'jdk_time',      'jdk_management' ],
-    [ 'jdk_jmx',       'jdk_rmi'        ],
+    [ 'jdk_lang',      'jdk_jmx'        ],
     [ 'jdk_sound',     'jdk_tools'      ],
     [ 'jdk_jdi',       'jdk_jfr'        ],
   /*[ 'jdk_beans',     'jdk_security3'  ],*/
