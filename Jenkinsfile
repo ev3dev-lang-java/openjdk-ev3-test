@@ -41,7 +41,7 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
         image.inside ("-v ${env.WORKSPACE}/original:/opt/jdktest") {
             for (kv in mapToList(prepMap)) {
                 String name = kv[0]
-                String work = kv[1[
+                String work = kv[1]
                 stage(name) {
                     sh "/bin/bash /opt/jdktest/mktest.sh ${work}"
                 }
