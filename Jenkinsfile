@@ -28,6 +28,7 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
     // from here we can do cleanup
     try {
         // clone our repo
+        cleanWs()
         checkout scm
         sh "mkdir original && mv mktest.sh original/"
         sh "chmod +x ${env.WORKSPACE}/original/mktest.sh"
