@@ -29,17 +29,20 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
     try {
         // clone our repo
         checkout scm
-        sh "chmod +x ${env.WORKSPACE}/mktest.sh"
+        sh "mkdir original && mv mktest.sh original/"
+        sh "chmod +x ${env.WORKSPACE}/original/mktest.sh"
 
         // build our image
         stage('Docker build') {
             image = docker.build("openjdk-10-ev3-test:latest")
         }
         // run inside image
-        image.inside {
+        image.inside ("-v ${env.WORKSPACE}/original:/opt/jdktest") {
             for (kv in mapToList(prepMap)) {
-                stage(kv[0]) {
-                    sh "/bin/bash ${env.WORKSPACE}/mktest.sh ${kv[1]}"
+                String name = kv[0]
+                String work = kv[1[
+                stage(name) {
+                    sh "/bin/bash /opt/jdktest/mktest.sh ${work}"
                 }
             }
         }
@@ -49,21 +52,25 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
             def jobs = [:]
             for (nameIt in list) {
                 String name = nameIt
-                jobs["Run ${name}"] = {
+                jobs["Test ${name}"] = {
+                    String orig    = "${env.WORKSPACE}/original"
+                    String workdir = "${env.WORKSPACE}/${name}"
+
+                    sh "cp -rf "${orig}/jvmtest" ${workdir}"
                     stage("Run ${name}") {
-                        image.inside {
-                            sh "/bin/bash ${env.WORKSPACE}/mktest.sh test_run ${name}"
+                        image.inside("-v ${orig}:/opt/jdktest -v ${workdir}:/opt/jdktest/jvmtest") {
+                            sh "/bin/bash /opt/jdktest/mktest.sh test_run ${name}"
                         }
                     }
+                    // and then submit the results
+                    stage ('Pub ${name}') {
+                        step([$class: "TapPublisher", testResults: "**/${name}/**/*.tap"])
+                        junit allowEmptyResults: true, keepLongStdio: true, testResults: "**/${name}/**/work/**/*.jtr.xml, **/${name}/**/junitreports/**/*.xml"
+                    }
+                    sh "rm -rf ${workdir}"
                 }
             }
             parallel jobs
-        }
-
-        // and then submit the results
-        stage ('Publish results') {
-            step([$class: "TapPublisher", testResults: "**/*.tap"])
-            junit allowEmptyResults: true, keepLongStdio: true, testResults: '**/work/**/*.jtr.xml, **/junitreports/**/*.xml'
         }
 
     } finally {
