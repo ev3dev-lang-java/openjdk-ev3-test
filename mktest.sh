@@ -39,7 +39,7 @@ function run_tests() {
     git checkout feature/ev3dev
 
     log "Calling get script."
-    #export JAVA_IMPL=hotspot
+    export JAVA_IMPL=hotspot
     export BUILD_LIST=systemtest
     export JAVA_BIN=/opt/jdktest/jdk/bin
     export SPEC=linux-arm
