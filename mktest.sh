@@ -9,8 +9,8 @@ ROOTDIR="$(dirname ${BASH_SOURCE[0]})"
 cd "$ROOTDIR"
 umask 000
 
-#export JAVA_IMPL=hotspot
-export BUILD_LIST=openjdk_regression
+export JAVA_IMPL=hotspot
+export BUILD_LIST=systemtest
 export JAVA_BIN="$ROOTDIR/jdk/bin"
 export SPEC=linux-arm
 export JAVA_VERSION=SE100
@@ -82,26 +82,62 @@ function test_run() {
     log "Starting tests."
     if [ "$#" -eq 0 ]; then
         #make sanity
-        make jdk_math
-        #make jdk_lang
-        #make jdk_io
-        #make jdk_beans
-        #make jdk_other
-        #make jdk_net
-        #make jdk_nio
-        #make jdk_security1
-        #make jdk_security2
-        #make jdk_security3
-        #make jdk_text
-        #make jdk_util
-        #make jdk_time
-        #make jdk_management
-        #make jdk_jmx
-        #make jdk_rmi
-        #make jdk_sound
-        #make jdk_tools
-        #make jdk_jdi
-        #make jdk_jfr
+        make DirectByteBufferLoadTest
+        #make LangLoadTest
+        #make LockingLoadTest
+        #make MathLoadTest_all
+        #make MathLoadTest_autosimd
+        #make MathLoadTest_bigdecimal
+        #make MauveSingleThreadLoadTest
+        #make MauveSingleInvocationLoadTest
+        #make MauveMultiThreadLoadTest
+        #make NioLoadTest
+        #make UtilLoadTest
+        #make HCRLateAttachWorkload
+        #make JdiTest
+        #make DaaLoadTest_daa1
+        #make DaaLoadTest_daa2
+        #make DaaLoadTest_daa3
+        #make DaaLoadTest_all
+        #make HeapHogLoadTest
+        #make ObjectTreeLoadTest
+        #make CpMpTest_CpMp
+        #make CpMpTest_MP
+        #make CpMpTest2
+        #make CpMpTest3
+        #make CpMpModularJarTest
+        #make CpMpModularJarTest2
+        #make CpMpModularJarTest3
+        #make JDKInternalAPIsTest
+        #make AutomaticModulesTest1
+        #make AutomaticModulesTest2
+        #make AutomaticModulesTest_ImpliedReadabilityTest1
+        #make AutomaticModulesTest_ImpliedReadabilityTest2
+        #make AutomaticModulesTest_ImpliedReadabilityTest3
+        #make ExplicitModulesTest
+        #make ServiceLoadersTest
+        #make PatchModuleTest_PlatformModPatchModule
+        #make PatchModuleTest_AppModPatchModule
+        #make PatchModuleTest_UnexportedTypePatchModule
+        #make PatchModuleTest_AdvancedPatchModule
+        #make PatchModuleImageTest_PlatformModPatchModule
+        #make PatchModuleImageTest_AppModPatchModule
+        #make PatchModuleImageTest_UnexportedTypePatchModule
+        #make PatchModuleImageTest_AdvancedPatchModule
+        #make UpgradeModPathTest_ExpDirModUpgrade
+        #make UpgradeModPathTest_ExpDirModUpgradeCRImage
+        #make UpgradeModPathTest_JarredModUpgrade
+        #make UpgradeModPathTest_JarredModUpgradeCRImage
+        #make JlinkTest_RequiredMod
+        #make JlinkTest_AddModLimitMod
+        #make CpMpJlinkTest
+        #make JlinkPluginOptionsTest_GeneralOptionsTest
+        #make LayersTest
+        #make CLTest
+        #make CLTestImage
+        #make CLLoadTest
+        #make CLStressWithLayers
+        #make CLStressWithLayersCRI
 
     else
         make "$1"
