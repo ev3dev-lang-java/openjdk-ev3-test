@@ -9,7 +9,7 @@ ROOTDIR="$(dirname ${BASH_SOURCE[0]})"
 cd "$ROOTDIR"
 umask 000
 
-export JAVA_IMPL=hotspot
+#export JAVA_IMPL=hotspot
 export BUILD_LIST=systemtest
 export JAVA_BIN="$ROOTDIR/jdk/bin"
 export SPEC=linux-arm
