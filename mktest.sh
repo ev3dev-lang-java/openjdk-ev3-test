@@ -18,7 +18,7 @@ function interpreterize() {
 
 function setup_jdk() {
     log "Downloading latest JDK-EV3."
-    wget -nv https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk11_build_ev3_linux/lastSuccessfulBuild/artifact/build/jdk-ev3.tar.gz
+    wget -nv https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk10_build_ev3_linux/lastSuccessfulBuild/artifact/build/jdk-ev3.tar.gz
 
     log "Extracting JDK."
     tar -xf jdk-ev3.tar.gz
