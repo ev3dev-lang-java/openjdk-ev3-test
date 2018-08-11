@@ -10,12 +10,12 @@ pipeline {
         }
         stage("Build") {
             steps {
-                sh "docker build -t openjdk-10-ev3-test ."
+                sh "docker build -t openjdk-11-ev3-test ."
             }
         }
         stage("Test") {
             steps {
-                sh "docker run --rm openjdk-10-ev3-test"
+                sh "docker run --rm openjdk-11-ev3-test"
             }
         }
     }
@@ -26,7 +26,7 @@ pipeline {
                 junit allowEmptyResults: true, keepLongStdio: true, testResults: '**/work/**/*.jtr.xml, **/junitreports/**/*.xml'
 
                 try {
-                    sh "docker rmi openjdk-10-ev3-test 2>/dev/null"
+                    sh "docker rmi openjdk-11-ev3-test 2>/dev/null"
                 } catch (err) {}
             }
         }
