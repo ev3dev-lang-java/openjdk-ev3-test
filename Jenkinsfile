@@ -7,12 +7,12 @@ def prepMap = [
 ]
 // list of parallel jobs (top-level list is executed sequentially, sublists are executed in parallel)
 def jdkJobs = [
-    [ 'DirectByteBufferLoadTest',      'LangLoadTest',      'LockingLoadTest'],
-    /*[ 'MathLoadTest_all',        'MathLoadTest_autosimd',       'MathLoadTest_bigdecimal'],
-    [ 'MauveSingleThreadLoadTest', 'MauveSingleInvocationLoadTest', 'MauveMultiThreadLoadTest'],
-    [ 'NioLoadTest',      'UtilLoadTest',      'HCRLateAttachWorkload'],
-    [ 'JdiTest',       'DaaLoadTest_daa1',       'DaaLoadTest_daa2'],
-    [ 'DaaLoadTest_daa3',       'DaaLoadTest_all',       'HeapHogLoadTest'],
+    [ 'DirectByteBufferLoadTest',   'LangLoadTest',                 'LockingLoadTest'],
+    /*[ 'MathLoadTest_all',         'MathLoadTest_autosimd',        'MathLoadTest_bigdecimal'],
+    [ 'MauveSingleThreadLoadTest',  'MauveSingleInvocationLoadTest','MauveMultiThreadLoadTest'],
+    [ 'NioLoadTest',                'UtilLoadTest',                 'HCRLateAttachWorkload'],
+    [ 'JdiTest',                    'DaaLoadTest_daa1',             'DaaLoadTest_daa2'],
+    [ 'DaaLoadTest_daa3',           'DaaLoadTest_all',              'HeapHogLoadTest'],
   [ 'jdk_beans',     'jdk_security3'  ],*/
 ]
 
