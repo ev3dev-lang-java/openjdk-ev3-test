@@ -60,11 +60,11 @@ function run_tests() {
     make LockingLoadTest
     make MathLoadTest_all
     make MathLoadTest_autosimd
-    #make MathLoadTest_bigdecimal
-    #make MauveSingleThreadLoadTest
-    #make MauveSingleInvocationLoadTest
-    #make MauveMultiThreadLoadTest
-    #make NioLoadTest
+    make MathLoadTest_bigdecimal
+    make MauveSingleThreadLoadTest
+    make MauveSingleInvocationLoadTest
+    make MauveMultiThreadLoadTest
+    make NioLoadTest
     #make UtilLoadTest
     #make HCRLateAttachWorkload
     #make JdiTest
