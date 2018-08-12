@@ -31,7 +31,7 @@ node('( linux || sw.os.linux ) && ( docker || sw.tool.docker ) && ( test )') {
 
         // build our image
         stage('Docker build') {
-            image = docker.build("openjdk-10-ev3-test:latest")
+            image = docker.build("openjdk-11-ev3-test:latest")
         }
 
         sh "mkdir original && mv mktest.sh original/"

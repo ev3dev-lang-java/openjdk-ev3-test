@@ -47,7 +47,7 @@ function jdk_setup() {
     fi
 
     log "Downloading latest JDK for ${ARCH}."
-    wget -nv "https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk10_build_${ARCH}_linux/lastSuccessfulBuild/artifact/build/jdk-${ARCH}.tar.gz"
+    wget -nv "https://ci.adoptopenjdk.net/view/ev3dev/job/openjdk11_build_${ARCH}_linux/lastSuccessfulBuild/artifact/build/jdk-${ARCH}.tar.gz"
 
     log "Extracting JDK."
     tar -xf "jdk-${ARCH}.tar.gz"
