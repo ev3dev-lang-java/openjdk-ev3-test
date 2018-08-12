@@ -56,10 +56,10 @@ function run_tests() {
     log "Starting tests."
     # make sanety
     make DirectByteBufferLoadTest
-    #make LangLoadTest
-    #make LockingLoadTest
-    #make MathLoadTest_all
-    #make MathLoadTest_autosimd
+    make LangLoadTest
+    make LockingLoadTest
+    make MathLoadTest_all
+    make MathLoadTest_autosimd
     #make MathLoadTest_bigdecimal
     #make MauveSingleThreadLoadTest
     #make MauveSingleInvocationLoadTest
