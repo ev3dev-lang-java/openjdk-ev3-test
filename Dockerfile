@@ -16,6 +16,7 @@ RUN apt-get update && \
 
 # Copy qemu & scripts to the container
 COPY mktest.sh /opt/jdktest/
+COPY qemu-arm-static /usr/bin/qemu-arm-static
 RUN chown -R 1000:1000 /opt && \
     chmod -R 777       /opt
 
