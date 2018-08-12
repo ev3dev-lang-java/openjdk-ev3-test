@@ -7,6 +7,7 @@ RUN adduser --disabled-password --gecos '' docker && \
 
 # Copy qemu & scripts to the container
 COPY mktest.sh /opt/jdktest/
+COPY qemu-arm-static /usr/bin/qemu-arm-static
 RUN mkdir -p /opt/jdktest && \
     chown docker:docker -R /opt/jdktest && \
     chmod +x /opt/jdktest/mktest.sh
