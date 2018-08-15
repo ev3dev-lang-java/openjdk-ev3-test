@@ -13,7 +13,7 @@ umask 000
 export BUILD_LIST=openjdk_regression
 export JAVA_BIN="$ROOTDIR/jdk/bin"
 export SPEC=linux-arm
-export JAVA_VERSION=SE100
+export JAVA_VERSION=SE110
 
 #####################
 # Utility functions #
