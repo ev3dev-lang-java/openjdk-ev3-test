@@ -43,8 +43,7 @@ function run_tests() {
     export BUILD_LIST=openjdk_regression
     export JAVA_BIN=/opt/jdktest/jdk/bin
     export SPEC=linux-arm
-    export JAVA_VERSION=SE100
-    #export JAVA_VERSION=SE110
+    export JAVA_VERSION=SE110
     ./get.sh   -t /opt/jdktest/openjdk-tests   -p   linux-arm   -v    openjdk11
     cd TestConfig
 
