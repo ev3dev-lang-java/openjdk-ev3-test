@@ -74,19 +74,19 @@ function run_tests() {
     make DaaLoadTest_all
     make HeapHogLoadTest
     make ObjectTreeLoadTest
-    #make CpMpTest_CpMp
-    #make CpMpTest_MP
-    #make CpMpTest2
-    #make CpMpTest3
-    #make CpMpModularJarTest
-    #make CpMpModularJarTest2
-    #make CpMpModularJarTest3
-    #make JDKInternalAPIsTest
-    #make AutomaticModulesTest1
-    #make AutomaticModulesTest2
-    #make AutomaticModulesTest_ImpliedReadabilityTest1
-    #make AutomaticModulesTest_ImpliedReadabilityTest2
-    #make AutomaticModulesTest_ImpliedReadabilityTest3
+    make CpMpTest_CpMp
+    make CpMpTest_MP
+    make CpMpTest2
+    make CpMpTest3
+    make CpMpModularJarTest
+    make CpMpModularJarTest2
+    make CpMpModularJarTest3
+    make JDKInternalAPIsTest
+    make AutomaticModulesTest1
+    make AutomaticModulesTest2
+    make AutomaticModulesTest_ImpliedReadabilityTest1
+    make AutomaticModulesTest_ImpliedReadabilityTest2
+    make AutomaticModulesTest_ImpliedReadabilityTest3
     #make ExplicitModulesTest
     #make ServiceLoadersTest
     #make PatchModuleTest_PlatformModPatchModule
