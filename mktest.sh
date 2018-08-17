@@ -65,15 +65,15 @@ function run_tests() {
     make MauveSingleInvocationLoadTest
     make MauveMultiThreadLoadTest
     make NioLoadTest
-    #make UtilLoadTest
-    #make HCRLateAttachWorkload
-    #make JdiTest
-    #make DaaLoadTest_daa1
-    #make DaaLoadTest_daa2
-    #make DaaLoadTest_daa3
-    #make DaaLoadTest_all
-    #make HeapHogLoadTest
-    #make ObjectTreeLoadTest
+    make UtilLoadTest
+    make HCRLateAttachWorkload
+    make JdiTest
+    make DaaLoadTest_daa1
+    make DaaLoadTest_daa2
+    make DaaLoadTest_daa3
+    make DaaLoadTest_all
+    make HeapHogLoadTest
+    make ObjectTreeLoadTest
     #make CpMpTest_CpMp
     #make CpMpTest_MP
     #make CpMpTest2
