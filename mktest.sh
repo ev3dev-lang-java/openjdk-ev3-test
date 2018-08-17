@@ -87,20 +87,20 @@ function run_tests() {
     make AutomaticModulesTest_ImpliedReadabilityTest1
     make AutomaticModulesTest_ImpliedReadabilityTest2
     make AutomaticModulesTest_ImpliedReadabilityTest3
-    #make ExplicitModulesTest
-    #make ServiceLoadersTest
-    #make PatchModuleTest_PlatformModPatchModule
-    #make PatchModuleTest_AppModPatchModule
-    #make PatchModuleTest_UnexportedTypePatchModule
-    #make PatchModuleTest_AdvancedPatchModule
-    #make PatchModuleImageTest_PlatformModPatchModule
-    #make PatchModuleImageTest_AppModPatchModule
-    #make PatchModuleImageTest_UnexportedTypePatchModule
-    #make PatchModuleImageTest_AdvancedPatchModule
-    #make UpgradeModPathTest_ExpDirModUpgrade
-    #make UpgradeModPathTest_ExpDirModUpgradeCRImage
-    #make UpgradeModPathTest_JarredModUpgrade
-    #make UpgradeModPathTest_JarredModUpgradeCRImage
+    make ExplicitModulesTest
+    make ServiceLoadersTest
+    make PatchModuleTest_PlatformModPatchModule
+    make PatchModuleTest_AppModPatchModule
+    make PatchModuleTest_UnexportedTypePatchModule
+    make PatchModuleTest_AdvancedPatchModule
+    make PatchModuleImageTest_PlatformModPatchModule
+    make PatchModuleImageTest_AppModPatchModule
+    make PatchModuleImageTest_UnexportedTypePatchModule
+    make PatchModuleImageTest_AdvancedPatchModule
+    make UpgradeModPathTest_ExpDirModUpgrade
+    make UpgradeModPathTest_ExpDirModUpgradeCRImage
+    make UpgradeModPathTest_JarredModUpgrade
+    make UpgradeModPathTest_JarredModUpgradeCRImage
     #make JlinkTest_RequiredMod
     #make JlinkTest_AddModLimitMod
     #make CpMpJlinkTest
