@@ -101,16 +101,16 @@ function run_tests() {
     make UpgradeModPathTest_ExpDirModUpgradeCRImage
     make UpgradeModPathTest_JarredModUpgrade
     make UpgradeModPathTest_JarredModUpgradeCRImage
-    #make JlinkTest_RequiredMod
-    #make JlinkTest_AddModLimitMod
-    #make CpMpJlinkTest
-    #make JlinkPluginOptionsTest_GeneralOptionsTest
-    #make LayersTest
-    #make CLTest
-    #make CLTestImage
-    #make CLLoadTest
-    #make CLStressWithLayers
-    #make CLStressWithLayersCRI
+    make JlinkTest_RequiredMod
+    make JlinkTest_AddModLimitMod
+    make CpMpJlinkTest
+    make JlinkPluginOptionsTest_GeneralOptionsTest
+    make LayersTest
+    make CLTest
+    make CLTestImage
+    make CLLoadTest
+    make CLStressWithLayers
+    make CLStressWithLayersCRI
     #ls /opt/jdktest/jvmtest/openjdk_regression/report/
 }
 
